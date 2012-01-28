@@ -10,7 +10,7 @@ No , just double click the icon :)
 
 USAGE
 =====
-	
+
   Just build the debug version with XCode then run it!
 
 Snap

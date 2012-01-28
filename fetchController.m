@@ -22,39 +22,39 @@
 		currentIndex   = 0;
 		myImageList    = [[NSMutableArray alloc] init];
 		_ajaxImg       = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"ajax-loader" ofType:@"gif"]];
-		_errorImg      = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"error" ofType:@"png"]]; 
+		_errorImg      = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:@"error" ofType:@"png"]];
 	}
 	return self;
 }
 -(void) work:(id)array
 {
-	
+
 	NSImageView* mainImageView  = [array objectAtIndex:0];
 	NSImageView* ajaxLoaderView = [array objectAtIndex:1];
-	
+
 	// To make mainImageView nil , to perform a better effect to users
 	if(mainImageView!=nil)
 	{
 		[mainImageView setImage:nil];
 	}
-	
+
 	// Use ajaxToggle to show the loading indicator
 	[self performSelectorOnMainThread:@selector(ajaxToggle:) withObject:ajaxLoaderView waitUntilDone:NO];
 
 	// Store the specific image at myImage
 	myImage = [[NSImage alloc] initWithContentsOfURL:myURL];
-	
+
 	if(nil!=myImage)
 	{
 		// Call the submitController to assign fetch.myImage to self.img
 		[mainImageView setImage:[self myImage]];
-		
+
 		// Add it to the imageList
 		[myImageList addObject:myImage];
-		
+
 		// To get the count of myImageList
 		imageListCount = [myImageList count];
-		
+
 		// To get the currentIndex
 		currentIndex = imageListCount-1;
 	}
@@ -63,15 +63,15 @@
 		// It means we can't get the picuture from the given url
 		[mainImageView setImage:_errorImg];
 	}
-	
-	// ajaxToggle to show the loading 
-	[self performSelectorOnMainThread:@selector(ajaxToggle:) withObject:ajaxLoaderView waitUntilDone:NO];	
+
+	// ajaxToggle to show the loading
+	[self performSelectorOnMainThread:@selector(ajaxToggle:) withObject:ajaxLoaderView waitUntilDone:NO];
 }
 -(void) changeImage:(id)array
 {
 	NSImageView* mainImageView = [array objectAtIndex:0];
 	NSNumber*            which = [array objectAtIndex:1];
-	
+
 	if([which intValue]==1)
 	{
 		currentIndex = (currentIndex+1)%(imageListCount);
@@ -100,7 +100,7 @@
 	{
 		[ajaxloader	setImage:nil];
 		NSLog(@"With pic , assigned to nill just now");
-	}	
+	}
 }
 -(int) returnCurrentIndex
 {
